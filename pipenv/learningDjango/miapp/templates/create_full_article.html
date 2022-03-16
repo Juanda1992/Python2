@@ -1,0 +1,34 @@
+{% extends 'layout.html' %}
+
+{% block title%} 
+Formularios en Django 
+{% endblock title%} 
+
+
+
+{% block content %}
+
+<html lang="en">
+  <head>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/4.3.0/min/dropzone.min.css"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/4.3.0/min/dropzone.min.js"></script>
+  </head>
+
+  <h1 class="title">Formularios en Django</h1>
+
+  <form action="" method="POST" enctype="multipart/form-data" class="" id="">
+    {% csrf_token %} {{ form.as_p}} {% comment %}
+    <div class="fallback">
+      {
+      <input type="file" name="file" />
+    </div>
+    {% endcomment %}
+
+    <input type="submit" value="Guardar" />
+  </form>
+
+  {% endblock %}
+</html>

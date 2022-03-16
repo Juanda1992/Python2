@@ -1,0 +1,117 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css'%}"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/4.3.0/min/dropzone.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/4.3.0/min/dropzone.min.js"></script>
+    <script src="{% static 'main.js' %}" defer></script>
+    {% comment %} Dropzone js and css files {% endcomment %}
+    {% comment %} <script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/dropzone@5/dist/min/dropzone.min.css" type="text/css" />
+     {% endcomment %}
+    <title>
+        {% block title%}
+        <!--Titulo de cada de pagina-->
+        {% endblock %}
+        | JDO 
+    </title>
+ 
+   
+</head>
+<body>
+    <header>
+        <div id="logotipo">
+
+            <h1>Sitio con Django | Juanda</h1>
+            <img src="{%static 'images/logo.png'%}" >
+            
+        </div>
+       
+    </header>
+
+        <nav>
+            <ul>
+                <li>
+                    <a href="{% url 'inicio' %}">Inicio</a>
+                </li>
+                <li>
+                    <a href="{% url 'articulos' %}">Articulos</a>
+                </li>
+                <li>
+                    <a href="{% url 'create' %}">Crear articulos</a>
+                </li>
+                <li>
+                    <a href="{% url 'create_full' %}">Crear articulos 2</a>
+                </li>
+                <li>
+                    <a href="{% url 'hola_mundo' %}">Hola Mundo</a>
+                </li>
+                <li>
+                    <a href="{% url 'pagina' %}">Mi pagina</a>
+                </li>
+                <li>
+                    <a href="{% url 'contacto' %}">Contacto</a>
+                </li>
+            </ul> 
+        </nav>
+    <div  class="barra">
+        <span class="izquierda"> </span>
+        <span class="derecha"></span>
+        <spa class="relleno"></span>
+        
+    </div>
+       
+        
+        <div id="content">
+
+            <div class="box">
+                
+                {% block content %}
+                {% csrf_token %}
+                    <!--Codigo que viene de templates-->
+                    <strong>Contenido del bloque original</strong>
+                    <!--Este solo sera heredado de una clase hija
+                    siempre y cuando se utilice block.super para poder
+                    cargar estos datos dentro del bloque-->
+                {% endblock %}
+            </div>  
+            
+
+        </div>
+
+      
+     
+        <footer>
+            Master with Python &copy;JuanOlarteG WEB {% now 'Y' %}
+        </footer>
+        
+        {% comment %} <script type="text/javascript">
+
+            var dropzone = new Dropzone ("#archivos",{
+                url :'upload_picture'
+            }) 
+        </script>  {% endcomment %}
+            {% comment %} <script src="{% static 'dropzone/dropzone.min.js' %}"></script>
+            <script type="text/javascript">
+                Dropzone.options.myDropzone = {
+                    paramName: "imagen", "file"
+                    autoProcessQueue : true,
+                    parallelUploads: 1,
+    
+                    init: function() {
+                        this.on("success", function(file, responseText) {
+                            // evento lanzado al terminar de subir las imágenes en cola
+                            console.log(responseText);
+                        });
+                    }
+                 };
+            </script>     {% endcomment %}
+    
+       
+</body>
+</html>

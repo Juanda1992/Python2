@@ -1,0 +1,44 @@
+{% extends 'layout.html'%} 
+
+
+{% block title%} {{title }} {% endblock%} 
+
+
+{% comment "Esto es un comentario" %} {% endcomment %} 
+
+
+{% block content%}
+
+<h1 class="title">{{title}}</h1>
+
+<p>{{mi_variable}}</p>
+
+{% if nombre and nombre == 'JuandaOG' %}
+
+<p>{{nombre}}</p>
+
+{% else %}
+
+<strong>El nombre no existe</strong>
+
+{% endif %}
+
+<h3>Listado de lenguajes</h3>
+<ul>
+  {%for lenguaje in lenguajes%}
+  <li>{{forloop.counter}}.{{lenguaje}}</li>
+  {% empty%}
+  <p>No hay lenguajes por mostrar</p>
+  {% endfor %}
+</ul>
+
+<h3>Años hasta el 2050</h3>
+<ul>
+  {% for year in years%}
+  <!--Esto es para chequear lo años pares-->
+  {% if year|divisibleby:2 == True %}
+  <li>{{year}}</li>
+  {% endif %} {% endfor %}
+</ul>
+
+{% include 'fecha_actual.html' %} {% endblock%}
