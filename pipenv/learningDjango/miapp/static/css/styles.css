@@ -266,3 +266,6 @@ footer{
     box-shadow: 0px 20px grey ;
 }
 
+.hidden{
+    display: none;
+}

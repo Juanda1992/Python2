@@ -7,13 +7,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css'%}"/>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/4.3.0/min/dropzone.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/4.3.0/min/dropzone.min.js"></script>
+    {% comment %} <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/4.3.0/min/dropzone.min.css"> {% endcomment %}
+    {% comment %} <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/4.3.0/min/dropzone.min.js"></script> {% endcomment %}
     <script src="{% static 'main.js' %}" defer></script>
     {% comment %} Dropzone js and css files {% endcomment %}
     {% comment %} <script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>
     <link rel="stylesheet" href="https://unpkg.com/dropzone@5/dist/min/dropzone.min.css" type="text/css" />
      {% endcomment %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/6.0.0-beta.2/dropzone.min.css" integrity="sha512-qkeymXyips4Xo5rbFhX+IDuWMDEmSn7Qo7KpPMmZ1BmuIA95IPVYsVZNn8n4NH/N30EY7PUZS3gTeTPoAGo1mA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/6.0.0-beta.2/dropzone-min.js" integrity="sha512-FFyHlfr2vLvm0wwfHTNluDFFhHaorucvwbpr0sZYmxciUj3NoW1lYpveAQcx2B+MnbXbSrRasqp43ldP9BKJcg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <title>
         {% block title%}
         <!--Titulo de cada de pagina-->
@@ -90,27 +92,7 @@
             Master with Python &copy;JuanOlarteG WEB {% now 'Y' %}
         </footer>
         
-        {% comment %} <script type="text/javascript">
-
-            var dropzone = new Dropzone ("#archivos",{
-                url :'upload_picture'
-            }) 
-        </script>  {% endcomment %}
-            {% comment %} <script src="{% static 'dropzone/dropzone.min.js' %}"></script>
-            <script type="text/javascript">
-                Dropzone.options.myDropzone = {
-                    paramName: "imagen", "file"
-                    autoProcessQueue : true,
-                    parallelUploads: 1,
-    
-                    init: function() {
-                        this.on("success", function(file, responseText) {
-                            // evento lanzado al terminar de subir las imágenes en cola
-                            console.log(responseText);
-                        });
-                    }
-                 };
-            </script>     {% endcomment %}
+        
     
        
 </body>

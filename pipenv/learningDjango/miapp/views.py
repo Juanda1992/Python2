@@ -109,7 +109,8 @@ def save_article(request):
         title = request.POST['title']
         content = request.POST['content']
         public = request.POST['public']
-        image = request.POST['image']
+        image = request.FILES.get('file')
+
         #Recoger los datos enviados por el formulario
         articulo = Article(         
             title = title,

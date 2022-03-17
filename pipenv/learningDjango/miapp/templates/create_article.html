@@ -14,7 +14,7 @@ Formularios en Django
 
 
 
-<form action="{% url 'save' %}" method="POST" enctype="multipart/form-data">
+<form action="{% url 'save' %}" method="POST" enctype="multipart/form-data" >
 
     {% csrf_token %}
      {% comment %} verificacion y cookie para que el navegador
@@ -32,12 +32,12 @@ Formularios en Django
             <option value="0">No</option>
         </select>
 
-    {% comment %} <label for="image">Imagen</label>
+        {% comment %} <label for="image">Imagen</label>  {% endcomment %}
+        
+        {% comment %} 
         <input type="file" name="image" id="image">
         <br> {% endcomment %}
-        <div>
-          
-        </div>
+
         <input type ="submit" value="Guardar"/>
     
 

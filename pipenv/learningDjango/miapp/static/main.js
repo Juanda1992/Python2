@@ -5,4 +5,4 @@
 //     maxFiles:2,
 //     maxFilesize:2,
 //     acceptedFiles: '.jpg'
-// })
+ //})

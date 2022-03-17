@@ -7,6 +7,11 @@ from django import forms
 
 class FormArticle(forms.Form):
 
+    def __init__(self, *args, **kwargs):
+        super(FormArticle, self).__init__(*args, **kwargs)
+        self.fields['file'].widget.attrs['class'] = 'hidden'
+      
+
     title = forms.CharField(
         label = "Titulo"
     )
@@ -17,8 +22,10 @@ class FormArticle(forms.Form):
         
     )
 
-    image = forms.ImageField(
-        label="Imagen"
+    file = forms.ImageField(
+        label="Imagen",
+        required=False,
+        
        
     )
 
