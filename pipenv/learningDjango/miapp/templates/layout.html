@@ -59,6 +59,9 @@
                 <li>
                     <a href="{% url 'contacto' %}">Contacto</a>
                 </li>
+                <li>
+                    <a href="{% url 'register' %}">Registro</a>
+                </li>
             </ul> 
         </nav>
     <div  class="barra">
@@ -85,8 +88,22 @@
             
 
         </div>
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        {% if messages %}
+  {% for m in messages %}
+  <script>
+    
+    Swal.fire({
+      title: 'Hola!',
+      text: "{{m}}",
+      icon: 'Succes',
+      confirmButtonText: 'Great!'
+    });
+  
 
-      
+  </script>
+  {% endfor%}
+{% endif %}
      
         <footer>
             Master with Python &copy;JuanOlarteG WEB {% now 'Y' %}

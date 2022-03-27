@@ -35,17 +35,7 @@ class Article(models.Model):
             
         return f"{self.title} {public}"
 
-# class Picture (models.Model):
-#     imagen = models.ImageField("Imagen", upload_to='articles')
-# class Image(models.Model):
-#     image = models.ImageField(upload_to="articles")
-#     date = models.DateTimeField( auto_now_add=True)
 
-#     class Meta:
-#         ordering=['-date']
-
-#     def __str__(self):
-#         return str(self.date)
    
 class Category(models.Model) :   
     name= models.CharField(max_length=110)

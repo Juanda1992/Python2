@@ -10,26 +10,85 @@ Formularios en Django
 
 <html lang="en">
   <head>
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/4.3.0/min/dropzone.min.css"
-    />
+    <!--Dropzone-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/4.3.0/min/dropzone.min.css"/>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/4.3.0/min/dropzone.min.js"></script>
+    <!--Sweet alert-->
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   </head>
 
   <h1 class="title">Formularios en Django</h1>
 
   <form action="{% url 'save' %}" method="POST" enctype="multipart/form-data" class="dropzone" id="my-awesome-dropzone">
    
-   
     {% csrf_token %} {{ form.as_p}}
   
     <input type="submit" value="Guardar" />
+
   </form>
   
   <script>
      Dropzone.discover() 
   </script>
 
+ 
+
+  {% if messages %}
+  {% for m in messages %}
+  <script>
+    
+    Swal.fire({
+      title: 'Hola!',
+      text: "{{m}}",
+      icon: 'Succes',
+      confirmButtonText: 'Great!'
+    });
+  
+
+  </script>
+  {% endfor%}
+{% endif %}
+
   {% endblock %}
 </html>
+
+{% comment %} Dropzone.autoDiscover = false;// para evitar errores por no ser un campo form    
+//definimos la funcionalidad de dropzone
+$(".dropzone").dropzone({
+    url: "uploads.php",// archivo que realiza las acciones
+    addRemoveLinks: true,// para poder borrar archivos del dropzone
+    maxFileSize: 1000,//tamaño maximo de los archivos en megas
+    dictResponseError: "Ha ocurrido un error en el servidor",//mensage de error si no funciona
+    acceptedFiles: 'image/*,.jpeg,.jpg,.png,.gif,.JPEG,.JPG,.PNG,.GIF,.rar,application/pdf,.psd',// archivos que acepta
+    complete: function(file){
+        // Si el archivo sube correctamente
+        
+        alert ('El array file = '+file);
+        if(file.status == "success"){
+            alert("El siguiente archivo ha subido correctamente: " + file.name);
+        }
+    },
+    // Si el archivo no sube correctamente
+    error: function(file){
+        alert("Error subiendo el archivo " + file.name);
+    },
+    // Borrar archivos 
+    removedfile: function(file, serverFileName){
+        var name = file.name;
+        $.ajax({
+            type: "POST",
+            url: "uploads.php?delete=true",
+            data: "filename="+name,
+            success: function(data){
+                var json = JSON.parse(data);
+                if(json.res == true){
+                    var element;
+                    (element = file.previewElement) != null ? 
+                    element.parentNode.removeChild(file.previewElement) : 
+                    false;
+                    alert("El elemento fué eliminado: " + name); 
+                }
+            }
+        });
+    }
+}); {% endcomment %}

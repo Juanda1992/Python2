@@ -44,6 +44,7 @@ urlpatterns = [
     path('save-article/', views.save_article, name = "save"),
     path('create-article/', views.create_article, name="create"),
     path('create-full-article/', views.create_full_article, name="create_full"),
+    path('registro/', views.register_page, name="register")
     # path('file_upload', views.file_upload, name= "file_upload")
    
 ]

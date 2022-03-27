@@ -1,35 +1,31 @@
-from distutils.command.upload import upload
+
 from email.mime import image
 import imp
 from re import A, X
 from urllib import response
 from django.http import JsonResponse
 from django.shortcuts import render, HttpResponse, redirect
-
-from distutils.command.upload import upload
+from isort import file
 
 from miapp.models import Article
 from miapp.forms import FormArticle
-# from miapp.forms import PictureF
-# from miapp.models import Picture
-# from .models import Image
+from django.contrib import messages
+import os
 
-from django.views.generic import TemplateView
+
+#Formulario para creacion de usuarios
+from django.contrib.auth.forms import UserCreationForm 
+# from miapp.forms import RegisterForm
 
 
 # Create your views here.
 #MVC = Modelo Vista Controlador
 #MVT = Modelo Template Vista (En este caso la vista es el controlador)-> Acciones y metodos
 
-#Navigation beetwen routes
-
 layout ="""
-    
-
 """
 
-# class MainView(TemplateView):
-#     template_name= 'templates/create_full_article.html'
+
 
 def index(request):
     nombre = 'JuandaOG'
@@ -120,15 +116,17 @@ def save_article(request):
         )
 
         articulo.save()
-        
-        return HttpResponse(f'Articulo creado {articulo.title}')
 
+        messages.success(request, "Tu articulo ha sido creado exitosamente :D")  
+        return redirect('/articulos/')
+        #return HttpResponse(f'Articulo creado {articulo.title}')
+        
     else:
         return HttpResponse("<h2>No se pudo crear el articulo</h2>")  
 
 def create_article(request):
 
-    return render(request, 'create_article.html')
+    return render(request, 'create_article.html')   
 
 def create_full_article(request): 
 
@@ -151,21 +149,19 @@ def create_full_article(request):
                 public = public,
                 image = image
             )
-
-            context ={
-                
-            }
-            # articulo.upload()
+            
             articulo.save()
-
+            
+            messages.success(request, "Creado")  
             return redirect('articulos')
+            
             #return HttpResponse(title)
 
         else:
             formulario = FormArticle()    
 
     formulario = FormArticle()
-
+     
     return render(request, 'create_full_article.html',{
         'form': formulario 
     })
@@ -193,46 +189,39 @@ def articulos (request):
 
     articulos = Article.objects.filter()
         
-
+    
     return render (request, 'articulos.html',{
         'articulos': articulos
     })
 
-def borrar_articulo(request, id):
+def borrar_articulo(request, id,image):
 
-    articulo = Article.objects.get(pk=id)    
+    articulo = Article.objects.get(pk=id)   
+    #os.remove() 
     articulo.delete()
-
+    os.remove(image)
+    
+    
+    messages.success(request, "Tu articulo ha sido eliminado exitosamente :S")
     return redirect('articulos')
 
-# def file_upload_view(request):
-#     #print(request.FILES)
-#     if request.method == 'POST':
-#         my_file = request.FILES.get ('file')
-#         Article.objects.create(upload=my_file)
-#         return HttpResponse('')
-#     return JsonResponse ({'post':'false'})
-    
-# def upload_picture(request):
-#     if request.method == 'POST':
-#          form = PictureF(request.POST, request.FILES)
+def register_page(request):  
 
-#          if form.is_valid():
-#              picture = form.save()
-#      else:
-#          form = PictureF()    
+    register_form= UserCreationForm();
 
-
-def home(request):
-    Article=Article.objects.all()
-    context={
-        'article':"article"   
-    }
-    return render(request, 'index.html', context)
-
-def file_upload(request):
     if request.method == 'POST':
-        my_file=request.FILES.get('file')
-        Article.objects.create(image=my_file)
-        return HttpResponse('')
-    return JsonResponse({'post':'false'})
+        register_form = UserCreationForm(request.POST)
+
+        if register_form.is_valid():
+            register_form.save() 
+
+            return redirect('inicio')
+
+    return render(request, 'register.html',{
+        'register_form' :register_form
+    }) 
+
+def remove_article():
+    archivoborrar = 'media/articles'
+    if os.path.exists(f'{archivoborrar}.jpg'):
+        os.remove(f'{archivoborrar}')
